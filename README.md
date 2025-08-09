@@ -29,7 +29,11 @@ It’s simple:
 Try the burger builder right now in your browser:  
 [🍔 **Live Demo on GitHub Pages**](https://yaldakhoshpey.github.io/Burger_Builder/)
 
-[![Play Now](https://img.shields.io/badge/🍔%20Play%20Now-Burger_Builder-orange?style=for-the-badge)](https://yaldakhoshpey.github.io/Burger_Builder/)
+<p align="center">
+  <a href="https://yaldakhoshpey.github.io/Burger_Builder/">
+    <img src="images/play_button.png" alt="Play Now" width="150" />
+  </a>
+</p>
 
 
 ---
