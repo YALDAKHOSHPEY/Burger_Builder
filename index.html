@@ -318,6 +318,7 @@
             }
         }
         
+        /* Responsive fixes */
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.8rem;
@@ -335,6 +336,33 @@
             }
             .burger-ingredient {
                 width: 160px;
+            }
+            
+            /* NEW: Responsive fixes for control buttons */
+            .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .controls button {
+                width: 100%;
+                max-width: 250px;
+                padding: 12px;
+                font-size: 0.7rem;
+            }
+        }
+        
+        /* NEW: Additional breakpoint for very small screens */
+        @media (max-width: 400px) {
+            .ingredient-btn {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .ingredient-btn img {
+                width: 35px;
+                height: 35px;
             }
         }
     </style>
