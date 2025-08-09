@@ -24,14 +24,28 @@ It’s simple:
 
 ---
 
-## 🚀 Live Demo
+## 🚀 **Live Demo**
 
-Try the burger builder right now in your browser:  
-[🍔 **Live Demo on GitHub Pages**](https://yaldakhoshpey.github.io/Burger_Builder/)
+Jump in and build your dream burger right now! 🍔✨  
+Experience the fun with animated clicks and tasty ingredients.
 
-<p align="center">
-  <a href="https://yaldakhoshpey.github.io/Burger_Builder/">
-    <img src="images/play_button.png" alt="Play Now" width="150" />
+<p align="center" style="margin-top: 40px;">
+  <a href="https://yaldakhoshpey.github.io/Burger_Builder/" 
+     style="display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            border-radius: 24px; 
+            padding: 28px 70px; 
+            text-decoration: none; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-weight: 900; 
+            font-size: 2.8rem; 
+            color: white; 
+            box-shadow: 0 8px 20px rgba(255, 126, 95, 0.5); 
+            user-select: none;">
+    <img src="images/play_button.png" alt="Play Button" width="72" height="72" style="margin-right: 24px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3));" />
+    PLAY NOW
   </a>
 </p>
 
