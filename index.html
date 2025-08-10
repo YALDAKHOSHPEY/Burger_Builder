@@ -1,547 +1,594 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Burger Builder</title>
-    <link rel="shortcut icon" href="./images/Ingredients/favicon.ico" type="image/x-icon"/>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link
+      rel="shortcut icon"
+      href="./images/Ingredients/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            image-rendering: pixelated;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        image-rendering: pixelated;
+      }
+
+      body {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Press Start 2P", cursive;
+        padding: 20px;
+        color: #5d4037;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        text-align: center;
+      }
+
+      header {
+        margin-bottom: 30px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: #e53935;
+        text-shadow: 3px 3px 0 #ffcc80;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+        color: #5d4037;
+        margin-bottom: 20px;
+      }
+
+      .burger-area {
+        position: relative;
+        height: 400px;
+        background: #d7ccc8;
+        border: 8px dashed #a1887f;
+        border-radius: 15px;
+        margin: 30px auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+        z-index: 1;
+      }
+
+      .ingredients-selector {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .ingredient-btn {
+        width: 100px;
+        height: 100px;
+        border: none;
+        border-radius: 10px;
+        background: #ffcc80;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 0 #e65100;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      .ingredient-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 0 #e65100;
+      }
+
+      .ingredient-btn:active {
+        transform: translateY(3px);
+        box-shadow: 0 2px 0 #e65100;
+      }
+
+      .ingredient-btn img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        margin-bottom: 5px;
+      }
+
+      .ingredient-btn span {
+        font-size: 0.6rem;
+        color: #5d4037;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      /* Base ingredient style */
+      .burger-ingredient {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: fall 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        z-index: 2; /* Default z-index for most ingredients */
+      }
+
+      /* Bottom bun - should be below other ingredients */
+      .burger-bottom {
+        z-index: 1;
+      }
+
+      /* Top bun - should be above everything */
+      .burger-top {
+        z-index: 3;
+      }
+
+      .burger-ingredient img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 15px 25px;
+        font-family: "Press Start 2P", cursive;
+        font-size: 0.8rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 0 #5d4037;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 0 #5d4037;
+      }
+
+      button:active {
+        transform: translateY(3px);
+        box-shadow: 0 2px 0 #5d4037;
+      }
+
+      #reset-btn {
+        background: #e53935;
+        color: white;
+      }
+
+      #eat-btn {
+        background: #7cb342;
+        color: white;
+      }
+
+      #share-btn {
+        background: #42a5f5;
+        color: white;
+      }
+
+      .floating-ingredients {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .floating-ingredient {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        opacity: 0.2;
+        animation: float 15s infinite linear;
+        z-index: 0;
+      }
+
+      .floating-ingredient img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .instructions {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        color: #5d4037;
+        background: #ffecb3;
+        padding: 15px;
+        border-radius: 10px;
+        border: 3px dashed #ffb300;
+      }
+
+      @keyframes fall {
+        0% {
+          top: -100px;
+          transform: translateX(-50%) rotate(0deg);
         }
-        
-        body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Press Start 2P', cursive;
-            padding: 20px;
-            color: #5d4037;
-            overflow-x: hidden;
+        70% {
+          transform: translateX(-50%) rotate(5deg);
         }
-        
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            text-align: center;
+        100% {
+          top: var(--target-top);
+          transform: translateX(-50%) rotate(0deg);
         }
-        
-        header {
-            margin-bottom: 30px;
-            animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
         }
-        
+        50% {
+          transform: translateY(-20px) rotate(10deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+      }
+
+      @keyframes eat {
+        0% {
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          transform: translateX(-50%) scale(0.8);
+        }
+        100% {
+          transform: translateX(-50%) scale(0);
+          opacity: 0;
+        }
+      }
+
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #ff0000;
+        animation: confetti-fall 5s linear forwards;
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(500px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .message {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #4caf50;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        animation: slideIn 0.5s forwards, fadeOut 0.5s forwards 2s;
+      }
+
+      @keyframes slideIn {
+        from {
+          top: -100px;
+        }
+        to {
+          top: 20px;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      /* Responsive fixes */
+      @media (max-width: 600px) {
         h1 {
-            font-size: 2.5rem;
-            color: #e53935;
-            text-shadow: 3px 3px 0 #ffcc80;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+          font-size: 1.8rem;
         }
-        
-        .subtitle {
-            font-size: 1rem;
-            color: #5d4037;
-            margin-bottom: 20px;
-        }
-        
-        .burger-area {
-            position: relative;
-            height: 400px;
-            background: #d7ccc8;
-            border: 8px dashed #a1887f;
-            border-radius: 15px;
-            margin: 30px auto;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: center;
-            justify-content: flex-start;
-            padding-bottom: 20px;
-            z-index: 1;
-        }
-        
-        .ingredients-selector {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
         .ingredient-btn {
-            width: 100px;
-            height: 100px;
-            border: none;
-            border-radius: 10px;
-            background: #ffcc80;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 0 #e65100;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
+          width: 80px;
+          height: 80px;
         }
-        
-        .ingredient-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 0 #e65100;
-        }
-        
-        .ingredient-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 #e65100;
-        }
-        
         .ingredient-btn img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            margin-bottom: 5px;
+          width: 40px;
+          height: 40px;
         }
-        
-        .ingredient-btn span {
-            font-size: 0.6rem;
-            color: #5d4037;
-            text-align: center;
-            line-height: 1.2;
+        .burger-area {
+          height: 300px;
         }
-        
-        /* Base ingredient style */
         .burger-ingredient {
-            position: absolute;
-            width: 200px;
-            height: auto;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: fall 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            z-index: 2; /* Default z-index for most ingredients */
+          width: 160px;
         }
-        
-        /* Bottom bun - should be below other ingredients */
-        .burger-bottom {
-            z-index: 1;
-        }
-        
-        /* Top bun - should be above everything */
-        .burger-top {
-            z-index: 3;
-        }
-        
-        .burger-ingredient img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
+
+        /* NEW: Responsive fixes for control buttons */
         .controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
         }
-        
-        button {
-            padding: 15px 25px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 0 #5d4037;
+
+        .controls button {
+          width: 100%;
+          max-width: 250px;
+          padding: 12px;
+          font-size: 0.7rem;
         }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #5d4037;
+      }
+
+      /* NEW: Additional breakpoint for very small screens */
+      @media (max-width: 400px) {
+        .ingredient-btn {
+          width: 70px;
+          height: 70px;
         }
-        
-        button:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 #5d4037;
+
+        .ingredient-btn img {
+          width: 35px;
+          height: 35px;
         }
-        
-        #reset-btn {
-            background: #e53935;
-            color: white;
-        }
-        
-        #eat-btn {
-            background: #7cb342;
-            color: white;
-        }
-        
-        #share-btn {
-            background: #42a5f5;
-            color: white;
-        }
-        
-        .floating-ingredients {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .floating-ingredient {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            opacity: 0.2;
-            animation: float 15s infinite linear;
-            z-index: 0;
-        }
-        
-        .floating-ingredient img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .instructions {
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #5d4037;
-            background: #ffecb3;
-            padding: 15px;
-            border-radius: 10px;
-            border: 3px dashed #ffb300;
-        }
-        
-        @keyframes fall {
-            0% {
-                top: -100px;
-                transform: translateX(-50%) rotate(0deg);
-            }
-            70% {
-                transform: translateX(-50%) rotate(5deg);
-            }
-            100% {
-                top: var(--target-top);
-                transform: translateX(-50%) rotate(0deg);
-            }
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(10deg);
-            }
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-        }
-        
-        @keyframes eat {
-            0% {
-                transform: translateX(-50%) scale(1);
-            }
-            50% {
-                transform: translateX(-50%) scale(0.8);
-            }
-            100% {
-                transform: translateX(-50%) scale(0);
-                opacity: 0;
-            }
-        }
-        
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ff0000;
-            animation: confetti-fall 5s linear forwards;
-        }
-        
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(500px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .message {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #4caf50;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 1000;
-            animation: slideIn 0.5s forwards, fadeOut 0.5s forwards 2s;
-        }
-        
-        @keyframes slideIn {
-            from {
-                top: -100px;
-            }
-            to {
-                top: 20px;
-            }
-        }
-        
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
-        }
-        
-        /* Responsive fixes */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            .ingredient-btn {
-                width: 80px;
-                height: 80px;
-            }
-            .ingredient-btn img {
-                width: 40px;
-                height: 40px;
-            }
-            .burger-area {
-                height: 300px;
-            }
-            .burger-ingredient {
-                width: 160px;
-            }
-            
-            /* NEW: Responsive fixes for control buttons */
-            .controls {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .controls button {
-                width: 100%;
-                max-width: 250px;
-                padding: 12px;
-                font-size: 0.7rem;
-            }
-        }
-        
-        /* NEW: Additional breakpoint for very small screens */
-        @media (max-width: 400px) {
-            .ingredient-btn {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .ingredient-btn img {
-                width: 35px;
-                height: 35px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <h1>PIXEL BURGER BUILDER</h1>
-            <p class="subtitle">Select ingredients to build your perfect burger!</p>
-        </header>
-        
-        <div class="burger-area" id="burger-area">
-            <div class="floating-ingredients">
-                <div class="floating-ingredient" style="left: 10%; top: 20%;"><img src="./images/Ingredients/bb_tomato.png" alt="Tomato"></div>
-                <div class="floating-ingredient" style="left: 25%; top: 40%;"><img src="./images/Ingredients/bb_cheddar_cheese.png" alt="Cheese"></div>
-                <div class="floating-ingredient" style="left: 75%; top: 60%;"><img src="./images/Ingredients/bb_lettuce.png" alt="Lettuce"></div>
-                <div class="floating-ingredient" style="left: 90%; top: 30%;"><img src="./images/Ingredients/bb_onions.png" alt="Onion"></div>
-                <div class="floating-ingredient" style="left: 50%; top: 70%;"><img src="./images/Ingredients/bb_bacon.png" alt="Bacon"></div>
-                <div class="floating-ingredient" style="left: 40%; top: 10%;"><img src="./images/Ingredients/Burger.png" alt="Burger"></div>
-            </div>
+      <header>
+        <h1>PIXEL BURGER BUILDER</h1>
+        <p class="subtitle">Select ingredients to build your perfect burger!</p>
+      </header>
+
+      <div class="burger-area" id="burger-area">
+        <div class="floating-ingredients">
+          <div class="floating-ingredient" style="left: 10%; top: 20%">
+            <img src="./images/Ingredients/bb_tomato.png" alt="Tomato" />
+          </div>
+          <div class="floating-ingredient" style="left: 25%; top: 40%">
+            <img
+              src="./images/Ingredients/bb_cheddar_cheese.png"
+              alt="Cheese"
+            />
+          </div>
+          <div class="floating-ingredient" style="left: 75%; top: 60%">
+            <img src="./images/Ingredients/bb_lettuce.png" alt="Lettuce" />
+          </div>
+          <div class="floating-ingredient" style="left: 90%; top: 30%">
+            <img src="./images/Ingredients/bb_onions.png" alt="Onion" />
+          </div>
+          <div class="floating-ingredient" style="left: 50%; top: 70%">
+            <img src="./images/Ingredients/bb_bacon.png" alt="Bacon" />
+          </div>
+          <div class="floating-ingredient" style="left: 40%; top: 10%">
+            <img src="./images/Ingredients/Burger.png" alt="Burger" />
+          </div>
         </div>
-        
-        <div class="ingredients-selector">
-            <button class="ingredient-btn" data-ingredient="bun-top">
-                <img src="./images/Ingredients/bb_top_bun.png" alt="Top Bun">
-                <span>Top BUN</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="patty">
-                <img src="./images/Ingredients/bb_patty.png" alt="Patty">
-                <span>PATTY</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="cheese">
-                <img src="./images/Ingredients/bb_cheddar_cheese.png" alt="Cheese">
-                <span>CHEESE</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="swiss">
-                <img src="./images/Ingredients/bb_swiss_cheese.png" alt="swiss">
-                <span>swiss</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="jack">
-                <img src="./images/Ingredients/bb_colby_jack_cheese.png" alt="jack">
-                <span>jack</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="lettuce">
-                <img src="./images/Ingredients/bb_lettuce.png" alt="Lettuce">
-                <span>LETTUCE</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="tomato">
-                <img src="./images/Ingredients/bb_tomato.png" alt="Tomato">
-                <span>TOMATO</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="onion">
-                <img src="./images/Ingredients/bb_onions.png" alt="Onion">
-                <span>ONION</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="bacon">
-                <img src="./images/Ingredients/bb_bacon.png" alt="Bacon">
-                <span>BACON</span>
-            </button>
-            <button class="ingredient-btn" data-ingredient="bun-bottom">
-                <img src="./images/Ingredients/bb_bottom_bun.png" alt="Bottom Bun">
-                <span>Bottom BUN</span>
-            </button>
-        </div>
-        
-        <div class="controls">
-            <button id="reset-btn">RESET</button>
-            <button id="eat-btn">EAT BURGER</button>
-            <button id="share-btn">SHARE</button>
-        </div>
-        
-        <div class="instructions">
-            <p>⬆️ Select ingredients to build your burger ⬆️</p>
-            <p>🍔 Start with the Top bun, add ingredients, and Bottom it off!</p>
-        </div>
+      </div>
+
+      <div class="ingredients-selector">
+        <button class="ingredient-btn" data-ingredient="bun-top">
+          <img src="./images/Ingredients/bb_top_bun.png" alt="Top Bun" />
+          <span>Top BUN</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="patty">
+          <img src="./images/Ingredients/bb_patty.png" alt="Patty" />
+          <span>PATTY</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="cheese">
+          <img src="./images/Ingredients/bb_cheddar_cheese.png" alt="Cheese" />
+          <span>CHEESE</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="swiss">
+          <img src="./images/Ingredients/bb_swiss_cheese.png" alt="swiss" />
+          <span>swiss</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="jack">
+          <img src="./images/Ingredients/bb_colby_jack_cheese.png" alt="jack" />
+          <span>jack</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="lettuce">
+          <img src="./images/Ingredients/bb_lettuce.png" alt="Lettuce" />
+          <span>LETTUCE</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="tomato">
+          <img src="./images/Ingredients/bb_tomato.png" alt="Tomato" />
+          <span>TOMATO</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="onion">
+          <img src="./images/Ingredients/bb_onions.png" alt="Onion" />
+          <span>ONION</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="bacon">
+          <img src="./images/Ingredients/bb_bacon.png" alt="Bacon" />
+          <span>BACON</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="avocado">
+          <img src="./images/Ingredients/bb_avocado.png" alt="Avocado" />
+          <span>AVOCADO</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="bun-bottom">
+          <img src="./images/Ingredients/bb_bottom_bun.png" alt="Bottom Bun" />
+          <span>Bottom BUN</span>
+        </button>
+      </div>
+
+      <div class="controls">
+        <button id="reset-btn">RESET</button>
+        <button id="eat-btn">EAT BURGER</button>
+        <button id="share-btn">SHARE</button>
+      </div>
+
+      <div class="instructions">
+        <p>⬆️ Select ingredients to build your burger ⬆️</p>
+        <p>🍔 Start with the Top bun, add ingredients, and Bottom it off!</p>
+      </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const burgerArea = document.getElementById('burger-area');
-            const ingredientButtons = document.querySelectorAll('.ingredient-btn');
-            const resetBtn = document.getElementById('reset-btn');
-            const eatBtn = document.getElementById('eat-btn');
-            const shareBtn = document.getElementById('share-btn');
-            
-            // Sound effects - using free sound effects that don't require authentication
-            const sounds = {
-                drop: new Audio('https://assets.mixkit.co/active_storage/sfx/216/216-preview.mp3'),
-                complete: new Audio('https://assets.mixkit.co/active_storage/sfx/253/253-preview.mp3'),
-                eat: new Audio('https://assets.mixkit.co/active_storage/sfx/239/239-preview.mp3'),
-                reset: new Audio('https://assets.mixkit.co/active_storage/sfx/213/213-preview.mp3'),
-                share: new Audio('https://assets.mixkit.co/active_storage/sfx/600/600-preview.mp3')
-            };
-            
-            // Set sound volume
-            Object.values(sounds).forEach(sound => {
-                sound.volume = 0.3;
-            });
-            
-            let totalHeight = 0;
-            let burgerComplete = false;
-            
-            // Create floating ingredients
-            createFloatingIngredients();
-            
-            // Add event listeners to ingredient buttons
-            ingredientButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (burgerComplete) return;
-                    
-                    const ingredient = this.dataset.ingredient;
-                    addIngredientToBurger(ingredient);
-                    
-                    // Check if burger is complete (has top bun)
-                    if (ingredient === 'bun-bottom') {
-                        burgerComplete = true;
-                        showMessage('🍔 Burger Complete! Ready to eat!');
-                        sounds.complete.play().catch(e => console.log("Sound playback prevented:", e));
-                    }
-                });
-            });
-            
-            // Reset button
-            resetBtn.addEventListener('click', function() {
-                burgerArea.innerHTML = '<div class="floating-ingredients"></div>';
-                createFloatingIngredients();
-                totalHeight = 0;
-                burgerComplete = false;
-                showMessage('🧹 Burger reset! Build a new one!');
-                sounds.reset.play().catch(e => console.log("Sound playback prevented:", e));
-            });
-            
-            // Eat button
-            eatBtn.addEventListener('click', function() {
-                const burger = document.querySelectorAll('.burger-ingredient');
-                if (burger.length === 0) {
-                    showMessage('🤷‍♂️ No burger to eat! Build one first!');
-                    return;
-                }
-                
-                sounds.eat.play().catch(e => console.log("Sound playback prevented:", e));
-                
-                // Animate eating the burger
-                burger.forEach((ingredient, index) => {
-                    setTimeout(() => {
-                        ingredient.style.animation = 'eat 0.5s forwards';
-                        setTimeout(() => ingredient.remove(), 500);
-                    }, index * 100);
-                });
-                
-                // Create confetti effect
-                createConfetti();
-                
-                setTimeout(() => {
-                    totalHeight = 0;
-                    burgerComplete = false;
-                    showMessage('😋 Yummy! That was delicious!');
-                }, 1000);
-            });
-            
-        // Enhanced Share button with right-aligned text and vibrant styling
-shareBtn.addEventListener('click', async function() {
-    sounds.share.play().catch(e => console.log("Sound playback prevented:", e));
-    createConfetti();
-    
-    try {
-        // Capture high-quality screenshot
-        const canvas = await html2canvas(document.getElementById('burger-area'), {
-            backgroundColor: null,
-            scale: 2,
-            logging: false,
-            useCORS: true
+      document.addEventListener("DOMContentLoaded", function () {
+        const burgerArea = document.getElementById("burger-area");
+        const ingredientButtons = document.querySelectorAll(".ingredient-btn");
+        const resetBtn = document.getElementById("reset-btn");
+        const eatBtn = document.getElementById("eat-btn");
+        const shareBtn = document.getElementById("share-btn");
+
+        // Sound effects - using free sound effects that don't require authentication
+        const sounds = {
+          drop: new Audio(
+            "https://assets.mixkit.co/active_storage/sfx/216/216-preview.mp3"
+          ),
+          complete: new Audio(
+            "https://assets.mixkit.co/active_storage/sfx/253/253-preview.mp3"
+          ),
+          eat: new Audio(
+            "https://assets.mixkit.co/active_storage/sfx/239/239-preview.mp3"
+          ),
+          reset: new Audio(
+            "https://assets.mixkit.co/active_storage/sfx/213/213-preview.mp3"
+          ),
+          share: new Audio(
+            "https://assets.mixkit.co/active_storage/sfx/600/600-preview.mp3"
+          ),
+        };
+
+        // Set sound volume
+        Object.values(sounds).forEach((sound) => {
+          sound.volume = 0.3;
         });
-        
-        const imageData = canvas.toDataURL('image/png');
-        showMessage('✨ Ready to Share Your Burger!');
-        
-        // Create sleek contribution panel
-        const contributionPanel = `
+
+        let totalHeight = 0;
+        let burgerComplete = false;
+
+        // Create floating ingredients
+        createFloatingIngredients();
+
+        // Add event listeners to ingredient buttons
+        ingredientButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            if (burgerComplete) return;
+
+            const ingredient = this.dataset.ingredient;
+            addIngredientToBurger(ingredient);
+
+            // Check if burger is complete (has top bun)
+            if (ingredient === "bun-bottom") {
+              burgerComplete = true;
+              showMessage("🍔 Burger Complete! Ready to eat!");
+              sounds.complete
+                .play()
+                .catch((e) => console.log("Sound playback prevented:", e));
+            }
+          });
+        });
+
+        // Reset button
+        resetBtn.addEventListener("click", function () {
+          burgerArea.innerHTML = '<div class="floating-ingredients"></div>';
+          createFloatingIngredients();
+          totalHeight = 0;
+          burgerComplete = false;
+          showMessage("🧹 Burger reset! Build a new one!");
+          sounds.reset
+            .play()
+            .catch((e) => console.log("Sound playback prevented:", e));
+        });
+
+        // Eat button
+        eatBtn.addEventListener("click", function () {
+          const burger = document.querySelectorAll(".burger-ingredient");
+          if (burger.length === 0) {
+            showMessage("🤷‍♂️ No burger to eat! Build one first!");
+            return;
+          }
+
+          sounds.eat
+            .play()
+            .catch((e) => console.log("Sound playback prevented:", e));
+
+          // Animate eating the burger
+          burger.forEach((ingredient, index) => {
+            setTimeout(() => {
+              ingredient.style.animation = "eat 0.5s forwards";
+              setTimeout(() => ingredient.remove(), 500);
+            }, index * 100);
+          });
+
+          // Create confetti effect
+          createConfetti();
+
+          setTimeout(() => {
+            totalHeight = 0;
+            burgerComplete = false;
+            showMessage("😋 Yummy! That was delicious!");
+          }, 1000);
+        });
+
+        // Enhanced Share button with right-aligned text and vibrant styling
+        shareBtn.addEventListener("click", async function () {
+          sounds.share
+            .play()
+            .catch((e) => console.log("Sound playback prevented:", e));
+          createConfetti();
+
+          try {
+            // Capture high-quality screenshot
+            const canvas = await html2canvas(
+              document.getElementById("burger-area"),
+              {
+                backgroundColor: null,
+                scale: 2,
+                logging: false,
+                useCORS: true,
+              }
+            );
+
+            const imageData = canvas.toDataURL("image/png");
+            showMessage("✨ Ready to Share Your Burger!");
+
+            // Create sleek contribution panel
+            const contributionPanel = `
             <div class="contribution-panel" style="
                 margin: 25px auto;
                 background: linear-gradient(to right, #fff5f5, #fff);
@@ -655,151 +702,167 @@ shareBtn.addEventListener('click', async function() {
                 </div>
             </div>
         `;
-        
-        // Remove existing panel if any
-        const existingPanel = document.querySelector('.contribution-panel');
-        if (existingPanel) existingPanel.remove();
-        
-        // Display new panel
-        document.querySelector('.controls').insertAdjacentHTML('afterend', contributionPanel);
-        
-        // Smooth scroll
-        document.querySelector('.contribution-panel').scrollIntoView({ 
-            behavior: 'smooth' 
+
+            // Remove existing panel if any
+            const existingPanel = document.querySelector(".contribution-panel");
+            if (existingPanel) existingPanel.remove();
+
+            // Display new panel
+            document
+              .querySelector(".controls")
+              .insertAdjacentHTML("afterend", contributionPanel);
+
+            // Smooth scroll
+            document.querySelector(".contribution-panel").scrollIntoView({
+              behavior: "smooth",
+            });
+          } catch (error) {
+            console.error("Error capturing screenshot:", error);
+            showMessage("❌ Error capturing your burger. Try again!");
+          }
         });
-        
-    } catch (error) {
-        console.error('Error capturing screenshot:', error);
-        showMessage('❌ Error capturing your burger. Try again!');
-    }
-});
-            
-            // Function to add ingredient to burger
-            function addIngredientToBurger(ingredient) {
-                const ingredientEl = document.createElement('div');
-                ingredientEl.classList.add('burger-ingredient');
-                
-                // Add specific class for buns
-                if (ingredient === 'bun-top') {
-                    ingredientEl.classList.add('burger-top');
-                }
-                if (ingredient === 'bun-bottom') {
-                    ingredientEl.classList.add('burger-bottom');
-                }
-                
-                // Create image element
-                const img = document.createElement('img');
-                
-                // Map ingredient names to image files
-                const ingredientImages = {
-                    'bun-top': 'bb_top_bun.png',
-                    'patty': 'bb_patty.png',
-                    'cheese': 'bb_cheddar_cheese.png',
-                    'lettuce': 'bb_lettuce.png',
-                    'tomato': 'bb_tomato.png',
-                    'onion': 'bb_onions.png',
-                    'bacon': 'bb_bacon.png',
-                    'jack':  'bb_colby_jack_cheese.png',
-                    'swiss': 'bb_swiss_cheese.png',
-                    'bun-bottom': 'bb_bottom_bun.png'
-                };
-                
-                img.src = `images/Ingredients/${ingredientImages[ingredient]}`;
-                img.alt = ingredient;
-                
-                // Add error handling for images
-                img.onerror = function() {
-                    console.error(`Failed to load image: ${this.src}`);
-                };
-                
-                ingredientEl.appendChild(img);
-                
-                // Set initial position
-                ingredientEl.style.top = '-100px';
-                burgerArea.appendChild(ingredientEl);
-                
-                // Calculate target top position
-                const targetTop = totalHeight;
-                totalHeight += 30; // Fixed height for ingredients
-                
-                // Set the target position for animation
-                setTimeout(() => {
-                    ingredientEl.style.setProperty('--target-top', `${targetTop}px`);
-                }, 10);
-                
-                // Play sound effect
-                sounds.drop.play().catch(e => console.log("Sound playback prevented:", e));
-            }
-            
-            // Function to create floating ingredients
-            function createFloatingIngredients() {
-                const floatingContainer = document.querySelector('.floating-ingredients') || document.createElement('div');
-                floatingContainer.className = 'floating-ingredients';
-                
-                const ingredients = [
-                    {img: 'bb_tomato.png', alt: 'Tomato'},
-                    {img: 'bb_cheddar_cheese.png', alt: 'Cheese'},
-                    {img: 'bb_colby_jack_cheese.png', alt:'jack'},
-                    {img: 'bb_swiss_cheese.png', alt: 'swiss'},
-                    {img: 'bb_lettuce.png', alt: 'Lettuce'},
-                    {img: 'bb_onions.png', alt: 'Onion'},
-                    {img: 'bb_patty.png', alt: 'patty'},
-                    {img: 'bb_bacon.png', alt: 'Bacon'},
-                    {img: 'Burger.png', alt: 'Burger'}
-                ];
-                
-                for (let i = 0; i < 12; i++) {
-                    const floating = document.createElement('div');
-                    floating.className = 'floating-ingredient';
-                    const randIngredient = ingredients[Math.floor(Math.random() * ingredients.length)];
-                    const img = document.createElement('img');
-                    img.src = `images/Ingredients/${randIngredient.img}`;
-                    img.alt = randIngredient.alt;
-                    floating.appendChild(img);
-                    floating.style.left = `${Math.random() * 100}%`;
-                    floating.style.top = `${Math.random() * 100}%`;
-                    floating.style.animationDuration = `${15 + Math.random() * 10}s`;
-                    floatingContainer.appendChild(floating);
-                }
-                
-                burgerArea.appendChild(floatingContainer);
-            }
-            
-            // Function to show message
-            function showMessage(text) {
-                // Remove existing messages
-                document.querySelectorAll('.message').forEach(el => el.remove());
-                
-                const message = document.createElement('div');
-                message.className = 'message';
-                message.textContent = text;
-                document.body.appendChild(message);
-                
-                // Auto remove after animation
-                setTimeout(() => {
-                    message.remove();
-                }, 2500);
-            }
-            
-            // Function to create confetti
-            function createConfetti() {
-                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-                
-                for (let i = 0; i < 50; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = `${Math.random() * 100}%`;
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = `${5 + Math.random() * 10}px`;
-                    confetti.style.height = confetti.style.width;
-                    document.body.appendChild(confetti);
-                    
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 5000);
-                }
-            }
-        });
+
+        // Function to add ingredient to burger
+        function addIngredientToBurger(ingredient) {
+          const ingredientEl = document.createElement("div");
+          ingredientEl.classList.add("burger-ingredient");
+
+          // Add specific class for buns
+          if (ingredient === "bun-top") {
+            ingredientEl.classList.add("burger-top");
+          }
+          if (ingredient === "bun-bottom") {
+            ingredientEl.classList.add("burger-bottom");
+          }
+
+          // Create image element
+          const img = document.createElement("img");
+
+          // Map ingredient names to image files
+          const ingredientImages = {
+            "bun-top": "bb_top_bun.png",
+            patty: "bb_patty.png",
+            cheese: "bb_cheddar_cheese.png",
+            lettuce: "bb_lettuce.png",
+            tomato: "bb_tomato.png",
+            onion: "bb_onions.png",
+            bacon: "bb_bacon.png",
+            jack: "bb_colby_jack_cheese.png",
+            swiss: "bb_swiss_cheese.png",
+            avocado: "bb_avocado.png",
+            "bun-bottom": "bb_bottom_bun.png",
+          };
+
+          img.src = `images/Ingredients/${ingredientImages[ingredient]}`;
+          img.alt = ingredient;
+
+          // Add error handling for images
+          img.onerror = function () {
+            console.error(`Failed to load image: ${this.src}`);
+          };
+
+          ingredientEl.appendChild(img);
+
+          // Set initial position
+          ingredientEl.style.top = "-100px";
+          burgerArea.appendChild(ingredientEl);
+
+          // Calculate target top position
+          const targetTop = totalHeight;
+          totalHeight += 30; // Fixed height for ingredients
+
+          // Set the target position for animation
+          setTimeout(() => {
+            ingredientEl.style.setProperty("--target-top", `${targetTop}px`);
+          }, 10);
+
+          // Play sound effect
+          sounds.drop
+            .play()
+            .catch((e) => console.log("Sound playback prevented:", e));
+        }
+
+        // Function to create floating ingredients
+        function createFloatingIngredients() {
+          const floatingContainer =
+            document.querySelector(".floating-ingredients") ||
+            document.createElement("div");
+          floatingContainer.className = "floating-ingredients";
+
+          const ingredients = [
+            { img: "bb_tomato.png", alt: "Tomato" },
+            { img: "bb_cheddar_cheese.png", alt: "Cheese" },
+            { img: "bb_colby_jack_cheese.png", alt: "jack" },
+            { img: "bb_swiss_cheese.png", alt: "swiss" },
+            { img: "bb_lettuce.png", alt: "Lettuce" },
+            { img: "bb_onions.png", alt: "Onion" },
+            { img: "bb_patty.png", alt: "patty" },
+            { img: "bb_bacon.png", alt: "Bacon" },
+            { img: "bb_avocado.png", alt: "Avocado" },
+            { img: "Burger.png", alt: "Burger" },
+          ];
+
+          for (let i = 0; i < 12; i++) {
+            const floating = document.createElement("div");
+            floating.className = "floating-ingredient";
+            const randIngredient =
+              ingredients[Math.floor(Math.random() * ingredients.length)];
+            const img = document.createElement("img");
+            img.src = `images/Ingredients/${randIngredient.img}`;
+            img.alt = randIngredient.alt;
+            floating.appendChild(img);
+            floating.style.left = `${Math.random() * 100}%`;
+            floating.style.top = `${Math.random() * 100}%`;
+            floating.style.animationDuration = `${15 + Math.random() * 10}s`;
+            floatingContainer.appendChild(floating);
+          }
+
+          burgerArea.appendChild(floatingContainer);
+        }
+
+        // Function to show message
+        function showMessage(text) {
+          // Remove existing messages
+          document.querySelectorAll(".message").forEach((el) => el.remove());
+
+          const message = document.createElement("div");
+          message.className = "message";
+          message.textContent = text;
+          document.body.appendChild(message);
+
+          // Auto remove after animation
+          setTimeout(() => {
+            message.remove();
+          }, 2500);
+        }
+
+        // Function to create confetti
+        function createConfetti() {
+          const colors = [
+            "#ff0000",
+            "#00ff00",
+            "#0000ff",
+            "#ffff00",
+            "#ff00ff",
+            "#00ffff",
+          ];
+
+          for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = `${5 + Math.random() * 10}px`;
+            confetti.style.height = confetti.style.width;
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+              confetti.remove();
+            }, 5000);
+          }
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
