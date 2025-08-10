@@ -51,6 +51,11 @@ Experience the fun with animated clicks and tasty ingredients.
 | ![Preview 1](images/preview1.jpg) | ![Preview 2](images/preview2.jpg) | ![Preview 3](images/preview3.jpg) |
 
 ---
+## 🥑🍳Added new ingredients by [VIDAKHOSHPEY22](https://github.com/VIDAKHOSHPEY22).  
+
+![Preview](https://github.com/YALDAKHOSHPEY/Burger_Builder/blob/9b542482bb6d3435fcb3932bc371a2bb7788e6eb/images/preview_new.png)
+
+---
 
 ## 🛠 How to Join the Challenge
 
