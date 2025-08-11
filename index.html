@@ -631,24 +631,30 @@
                 </h3>
 
                 <div class="burger-preview" style="
-                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     margin: 0 auto 20px;
                     padding: 15px;
                     background: white;
                     border-radius: 12px;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-                    display: inline-block;
+                    width: 100%;
+                    min-height: 250px; 
                 ">
-                    <img src="${imageData}" style="
-                        max-width: 220px;
-                        border: 4px solid #ffa502;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                        transition: transform 0.3s ease;
-                    "
-                    onmouseover="this.style.transform='scale(1.05)'"
-                    onmouseout="this.style.transform='scale(1)'"
-                    alt="Your custom burger">
+                  <img src="${imageData}" style="
+                      max-width: 220px;
+                      max-height: 220px;
+                      border: 4px solid #ffa502;
+                      border-radius: 8px;
+                      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                      transition: transform 0.3s ease;
+                      display: block;
+                      margin: 0;
+                  "
+                  onmouseover="this.style.transform='scale(1.05)'"
+                  onmouseout="this.style.transform='scale(1)'"
+                  alt="Your custom burger">
                 </div>
 
                 <div class="contribution-steps" style="
@@ -750,16 +756,16 @@
           // Add specific class for buns
           if (ingredient === "bun-top") {
             ingredientEl.classList.add("burger-top");
-            ingredientEl.style.zIndex = 100; // Top bun luôn trên cùng
+            ingredientEl.style.zIndex = 100; // Top bun always on top
           } else if (ingredient === "bun-bottom") {
             ingredientEl.classList.add("burger-bottom");
-            ingredientEl.style.zIndex = 1; // Bottom bun luôn dưới cùng
+            ingredientEl.style.zIndex = 1; // Bottom bun always at the bottom
           } else {
-            // Các nguyên liệu khác: z-index giảm dần theo thứ tự thêm
-            // Số lượng nguyên liệu hiện tại
+            // For other ingredients, set z-index based on current count
+            // This ensures that the first ingredient has the highest z-index
             const currentCount =
               burgerArea.querySelectorAll(".burger-ingredient").length;
-            // Nguyên liệu thêm sau sẽ có z-index thấp hơn
+            // Set z-index to ensure proper stacking
             ingredientEl.style.zIndex = 100 - currentCount;
           }
 
@@ -800,14 +806,18 @@
           ingredientEl.style.top = "-100px";
           burgerArea.appendChild(ingredientEl);
 
-          // Calculate target top position
-          const targetTop = totalHeight;
-          totalHeight += 30; // Fixed height for ingredients
+          // Calculate target top position after image loads
+          img.onload = function () {
+            const offset = -20; // modify this value to adjust the drop position
+            const ingredientHeight = img.height;
+            const targetTop = totalHeight;
+            totalHeight += ingredientHeight / 2 + offset;
 
-          // Set the target position for animation
-          setTimeout(() => {
-            ingredientEl.style.setProperty("--target-top", `${targetTop}px`);
-          }, 10);
+            // Set the target position for animation
+            setTimeout(() => {
+              ingredientEl.style.setProperty("--target-top", `${targetTop}px`);
+            }, 10);
+          };
 
           // Play sound effect
           sounds.drop
