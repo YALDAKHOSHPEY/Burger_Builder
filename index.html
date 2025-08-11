@@ -456,6 +456,18 @@
           <img src="./images/Ingredients/bb_sausage.png" alt="Sausage" />
           <span>SAUSAGE</span>
         </button>
+        <button class="ingredient-btn" data-ingredient="ketchup">
+          <img src="./images/Ingredients/bb_ketchup.png" alt="Ketchup" />
+          <span>KETCHUP</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="mustard">
+          <img src="./images/Ingredients/bb_mustard.png" alt="Mustard" />
+          <span>MUSTARD</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="mayonnaise">
+          <img src="./images/Ingredients/bb_mayonnaise.png" alt="Mayonnaise" />
+          <span>MAYONNAISE</span>
+        </button>
         <button class="ingredient-btn" data-ingredient="bun-bottom">
           <img src="./images/Ingredients/bb_bottom_bun.png" alt="Bottom Bun" />
           <span>Bottom BUN</span>
@@ -738,9 +750,17 @@
           // Add specific class for buns
           if (ingredient === "bun-top") {
             ingredientEl.classList.add("burger-top");
-          }
-          if (ingredient === "bun-bottom") {
+            ingredientEl.style.zIndex = 100; // Top bun luôn trên cùng
+          } else if (ingredient === "bun-bottom") {
             ingredientEl.classList.add("burger-bottom");
+            ingredientEl.style.zIndex = 1; // Bottom bun luôn dưới cùng
+          } else {
+            // Các nguyên liệu khác: z-index giảm dần theo thứ tự thêm
+            // Số lượng nguyên liệu hiện tại
+            const currentCount =
+              burgerArea.querySelectorAll(".burger-ingredient").length;
+            // Nguyên liệu thêm sau sẽ có z-index thấp hơn
+            ingredientEl.style.zIndex = 100 - currentCount;
           }
 
           // Create image element
@@ -760,6 +780,9 @@
             avocado: "bb_avocado.png",
             omelet: "bb_omelet.png",
             sausage: "bb_sausage.png",
+            ketchup: "bb_ketchup.png",
+            mustard: "bb_mustard.png",
+            mayonnaise: "bb_mayonnaise.png",
             "bun-bottom": "bb_bottom_bun.png",
           };
 
@@ -811,6 +834,9 @@
             { img: "bb_avocado.png", alt: "Avocado" },
             { img: "bb_omelet.png", alt: "Omelet" },
             { img: "bb_sausage.png", alt: "Sausage" },
+            { img: "bb_ketchup.png", alt: "Ketchup" },
+            { img: "bb_mustard.png", alt: "Mustard" },
+            { img: "bb_mayonnaise.png", alt: "Mayonnaise" },
             { img: "Burger.png", alt: "Burger" },
           ];
 
