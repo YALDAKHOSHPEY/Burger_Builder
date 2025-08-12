@@ -452,6 +452,43 @@
           <img src="./images/Ingredients/bb_avocado.png" alt="Avocado" />
           <span>AVOCADO</span>
         </button>
+            <button class="ingredient-btn" data-ingredient="pickle">
+          <img src="./images/Ingredients/bb_pickle.png" alt="Pickle" />
+          <span>PICKLE</span>
+        </button>
+                </button>
+            <button class="ingredient-btn" data-ingredient="bell_pepper">
+          <img src="./images/Ingredients/bb_bell_pepper.png" alt="Bell Pepper" />
+          <span>BELL PEPPER</span>
+        </button>
+                </button>
+                </button>
+            <button class="ingredient-btn" data-ingredient="grilled_shiitake">
+          <img src="./images/Ingredients/bb_grilled_shiitake.png" alt="Grilled Shiitake" />
+          <span>GRILLED SHIITAKE</span>
+        </button>
+                </button>
+                </button>
+            <button class="ingredient-btn" data-ingredient="fries">
+          <img src="./images/Ingredients/bb_fries.png" alt="Fries" />
+          <span>FRIES</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="sausage">
+          <img src="./images/Ingredients/bb_sausage.png" alt="Sausage" />
+          <span>SAUSAGE</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="ketchup">
+          <img src="./images/Ingredients/bb_ketchup.png" alt="Ketchup" />
+          <span>KETCHUP</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="mustard">
+          <img src="./images/Ingredients/bb_mustard.png" alt="Mustard" />
+          <span>MUSTARD</span>
+        </button>
+        <button class="ingredient-btn" data-ingredient="mayonnaise">
+          <img src="./images/Ingredients/bb_mayonnaise.png" alt="Mayonnaise" />
+          <span>MAYONNAISE</span>
+        </button>
         <button class="ingredient-btn" data-ingredient="bun-bottom">
           <img src="./images/Ingredients/bb_bottom_bun.png" alt="Bottom Bun" />
           <span>Bottom BUN</span>
@@ -613,28 +650,34 @@
                 ">
                     Share Your Burger!
                 </h3>
-                
+
                 <div class="burger-preview" style="
-                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     margin: 0 auto 20px;
                     padding: 15px;
                     background: white;
                     border-radius: 12px;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-                    display: inline-block;
+                    width: 100%;
+                    min-height: 250px; 
                 ">
-                    <img src="${imageData}" style="
-                        max-width: 220px;
-                        border: 4px solid #ffa502;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                        transition: transform 0.3s ease;
-                    " 
-                    onmouseover="this.style.transform='scale(1.05)'"
-                    onmouseout="this.style.transform='scale(1)'"
-                    alt="Your custom burger">
+                  <img src="${imageData}" style="
+                      max-width: 220px;
+                      max-height: 220px;
+                      border: 4px solid #ffa502;
+                      border-radius: 8px;
+                      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                      transition: transform 0.3s ease;
+                      display: block;
+                      margin: 0;
+                  "
+                  onmouseover="this.style.transform='scale(1.05)'"
+                  onmouseout="this.style.transform='scale(1)'"
+                  alt="Your custom burger">
                 </div>
-                
+
                 <div class="contribution-steps" style="
                     background: rgba(255,255,255,0.8);
                     padding: 20px;
@@ -660,8 +703,8 @@
                     ">
                         <li style="margin-bottom: 10px; color: #2f3542;">Save your burger image</li>
                         <li style="margin-bottom: 10px;">
-                            <a href="https://github.com/YALDAKHOSHPEY/Burger_Builder/blob/main/CONTRIBUTIONS.md" 
-                            target="_blank" 
+                            <a href="https://github.com/YALDAKHOSHPEY/Burger_Builder/blob/main/CONTRIBUTIONS.md"
+                            target="_blank"
                             style="
                                 color: #1e90ff;
                                 text-decoration: none;
@@ -677,15 +720,15 @@
                         <li style="color: #2f3542;">Submit your creation</li>
                     </ol>
                 </div>
-                
+
                 <div class="support-section" style="
                     text-align: center;
                     margin-top: 20px;
                     padding-top: 15px;
                     border-top: 2px dashed #ffa502;
                 ">
-                    <a href="https://buymeacoffee.com/YALDAKHOSHPEY" 
-                       target="_blank" 
+                    <a href="https://buymeacoffee.com/YALDAKHOSHPEY"
+                       target="_blank"
                        style="
                             display: inline-block;
                             background: linear-gradient(to right, #ff6b6b, #ff8e8e);
@@ -734,9 +777,17 @@
           // Add specific class for buns
           if (ingredient === "bun-top") {
             ingredientEl.classList.add("burger-top");
-          }
-          if (ingredient === "bun-bottom") {
+            ingredientEl.style.zIndex = 100; // Top bun always on top
+          } else if (ingredient === "bun-bottom") {
             ingredientEl.classList.add("burger-bottom");
+            ingredientEl.style.zIndex = 1; // Bottom bun always at the bottom
+          } else {
+            // For other ingredients, set z-index based on current count
+            // This ensures that the first ingredient has the highest z-index
+            const currentCount =
+              burgerArea.querySelectorAll(".burger-ingredient").length;
+            // Set z-index to ensure proper stacking
+            ingredientEl.style.zIndex = 100 - currentCount;
           }
 
           // Create image element
@@ -755,6 +806,14 @@
             swiss: "bb_swiss_cheese.png",
             avocado: "bb_avocado.png",
             omelet: "bb_omelet.png",
+            sausage: "bb_sausage.png",
+            ketchup: "bb_ketchup.png",
+            mustard: "bb_mustard.png",
+            mayonnaise: "bb_mayonnaise.png",
+            pickle: "bb_pickle.png",
+            bell_pepper: "bb_bell_pepper.png",
+            grilled_shiitake: "bb_grilled_shiitake.png",
+            fries: "bb_fries.png",
             "bun-bottom": "bb_bottom_bun.png",
           };
 
@@ -772,14 +831,18 @@
           ingredientEl.style.top = "-100px";
           burgerArea.appendChild(ingredientEl);
 
-          // Calculate target top position
-          const targetTop = totalHeight;
-          totalHeight += 30; // Fixed height for ingredients
+          // Calculate target top position after image loads
+          img.onload = function () {
+            const offset = -20; // modify this value to adjust the drop position
+            const ingredientHeight = img.height;
+            const targetTop = totalHeight;
+            totalHeight += ingredientHeight / 2 + offset;
 
-          // Set the target position for animation
-          setTimeout(() => {
-            ingredientEl.style.setProperty("--target-top", `${targetTop}px`);
-          }, 10);
+            // Set the target position for animation
+            setTimeout(() => {
+              ingredientEl.style.setProperty("--target-top", `${targetTop}px`);
+            }, 10);
+          };
 
           // Play sound effect
           sounds.drop
@@ -805,6 +868,14 @@
             { img: "bb_bacon.png", alt: "Bacon" },
             { img: "bb_avocado.png", alt: "Avocado" },
             { img: "bb_omelet.png", alt: "Omelet" },
+            { img: "bb_sausage.png", alt: "Sausage" },
+            { img: "bb_ketchup.png", alt: "Ketchup" },
+            { img: "bb_mustard.png", alt: "Mustard" },
+            { img: "bb_mayonnaise.png", alt: "Mayonnaise" },
+            { img: "bb_pickle.png", alt: "Pickle" },
+            { img: "bb_bell_pepper.png", alt: "Bell Pepper" },
+            { img: "bb_grilled_shiitake.png", alt: "Grilled Shiitake" },
+            { img: "bb_fries.png", alt: "Fries" },
             { img: "Burger.png", alt: "Burger" },
           ];
 
