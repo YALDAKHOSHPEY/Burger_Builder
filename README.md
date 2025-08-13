@@ -1,4 +1,5 @@
 <!-- hey -->
+
 # 🍔 The Ultimate Burger Builder
 
 ![Banner](images/banner.jpg)
@@ -12,8 +13,8 @@ Your mission: **Create the most epic digital burger**, share it, and become a bu
 
 It’s simple:
 
-1. We provide burger ingredients 🥬🍅🧀🍔  
-2. You design your own digital burger masterpiece  
+1. We provide burger ingredients 🥬🍅🧀🍔
+2. You design your own digital burger masterpiece
 3. You upload and share it here 🚀
 
 ---
@@ -45,41 +46,37 @@ Enjoy animated clicks and tasty ingredients.
 
 ## 🖼 Burger Hall of Fame
 
-| Preview 1 | Preview 2 | Preview 3 |
-|-----------|-----------|-----------|
+| Preview 1                         | Preview 2                         | Preview 3                         |
+| --------------------------------- | --------------------------------- | --------------------------------- |
 | ![Preview 1](images/preview1.jpg) | ![Preview 2](images/preview2.jpg) | ![Preview 3](images/preview3.jpg) |
 
-
----
-## 🥑🍳Added new ingredients by [DuyetBKU](https://github.com/DuyetBKU).  
-
-![Preview](https://github.com/VIDAKHOSHPEY22/Burger_Builder/blob/9b542482bb6d3435fcb3932bc371a2bb7788e6eb/images/preview_new.png)
 ---
 
 ## 🛠 How to Join the Challenge
 
-### 1️⃣ Fork this repository  
+### 1️⃣ Fork this repository
+
 Click the **Fork** button at the top-right to create your own copy of this repo.
 
-### 2️⃣ Clone it to your computer  
+### 2️⃣ Clone it to your computer
+
 Open your terminal and run:
 
 ```bash
 git clone https://github.com/VIDAKHOSHPEY22/Burger_Builder.git
 ```
 
-
 ### 3️⃣ Create Your Burger
 
-- Use the ingredient images located in the `images/ingredients` folder.  
-- Design your burger by combining these ingredients.  
+- Use the ingredient images located in the `images/ingredients` folder.
+- Design your burger by combining these ingredients.
 - Save your final creation as a `.jpg` or `.png` file.
 
 ---
 
 ### 4️⃣ Add Your Burger to the Project
 
-- Place your burger image inside the `Your_Images` directory.  
+- Place your burger image inside the `Your_Images` directory.
 - Name your file following this format: `burger_vidakhoshpey.png`
 
 ---
@@ -102,7 +99,6 @@ git commit -m "Added my burger"
 git push
 ```
 
-
 ---
 
 ### 7️⃣ Open a Pull Request
@@ -113,23 +109,21 @@ Click Pull Requests → New Pull Request.
 
 Submit your PR and wait for your burger to be featured in the gallery! 🎉
 
-
-
 ---
 
 ## 💬 Join the Fun in Discussions
 
-- Vote for your favorite burgers  
-- Share your secret recipes  
+- Vote for your favorite burgers
+- Share your secret recipes
 - Suggest new features (Pizza Builder is coming soon! 🍕)
 
 [👉 Join the Discussions](../../discussions)
 
-
 ---
 
 ### 📂 Project Structure
-``` text 
+
+```text
 
 Hamburger/
 ├── images/             # All images (banner, demo gif, previews, ingredients)
@@ -147,6 +141,7 @@ Hamburger/
 ├── LICENCE             # License information
 └── README.md           # This file
 ```
+
 ---
 
 ## 📜 License
@@ -154,8 +149,8 @@ Hamburger/
 This project is licensed under the **Yalda & Vida Fun License**:  
 You may fork, remix, and share your burger creations as long as you:
 
-- Credit **Yalda & Vida**  
-- Keep it friendly and fun  
+- Credit **Yalda & Vida**
+- Keep it friendly and fun
 - Respect all burger preferences (yes, even pineapple 🍍)
 
 [View License](LICENCE)
@@ -164,8 +159,8 @@ You may fork, remix, and share your burger creations as long as you:
 
 ## 👩‍🍳 Coming Soon
 
-- 🍕 Pizza Builder  
-- 🌭 Hotdog Creator  
+- 🍕 Pizza Builder
+- 🌭 Hotdog Creator
 - 🥪 Sandwich Architect
 
 ---
