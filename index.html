@@ -63,14 +63,16 @@
         color: #5d4037;
         margin-bottom: 20px;
       }
-
+      .capture-area {
+        margin: 30px auto;
+      }
       .burger-area {
         position: relative;
         height: 400px;
+        width: 100%;
         background: #d7ccc8;
         border: 8px dashed #a1887f;
         border-radius: 15px;
-        margin: 30px auto;
         overflow: hidden;
         display: flex;
         flex-direction: column-reverse;
@@ -129,7 +131,6 @@
         text-align: center;
         line-height: 1.2;
       }
-
       /* Base ingredient style */
       .burger-ingredient {
         position: absolute;
@@ -334,6 +335,15 @@
           width: 80px;
           height: 80px;
         }
+        .ingredient-text {
+          display: inline-block;
+          max-width: 80px;
+          overflow-wrap: break-word;
+          word-break: normal;
+          -webkit-hyphens: auto;
+          -ms-hyphens: auto;
+          hyphens: auto;
+        }
         .ingredient-btn img {
           width: 40px;
           height: 40px;
@@ -366,7 +376,15 @@
           width: 70px;
           height: 70px;
         }
-
+        .ingredient-text {
+          display: inline-block;
+          max-width: 70px;
+          overflow-wrap: break-word;
+          word-break: normal;
+          -webkit-hyphens: auto;
+          -ms-hyphens: auto;
+          hyphens: auto;
+        }
         .ingredient-btn img {
           width: 35px;
           height: 35px;
@@ -381,28 +399,30 @@
         <p class="subtitle">Select ingredients to build your perfect burger!</p>
       </header>
 
-      <div class="burger-area" id="burger-area">
-        <div class="floating-ingredients">
-          <div class="floating-ingredient" style="left: 10%; top: 20%">
-            <img src="./images/Ingredients/bb_tomato.png" alt="Tomato" />
-          </div>
-          <div class="floating-ingredient" style="left: 25%; top: 40%">
-            <img
-              src="./images/Ingredients/bb_cheddar_cheese.png"
-              alt="Cheese"
-            />
-          </div>
-          <div class="floating-ingredient" style="left: 75%; top: 60%">
-            <img src="./images/Ingredients/bb_lettuce.png" alt="Lettuce" />
-          </div>
-          <div class="floating-ingredient" style="left: 90%; top: 30%">
-            <img src="./images/Ingredients/bb_onions.png" alt="Onion" />
-          </div>
-          <div class="floating-ingredient" style="left: 50%; top: 70%">
-            <img src="./images/Ingredients/bb_bacon.png" alt="Bacon" />
-          </div>
-          <div class="floating-ingredient" style="left: 40%; top: 10%">
-            <img src="./images/Ingredients/Burger.png" alt="Burger" />
+      <div id="capture-area">
+        <div class="burger-area" id="burger-area">
+          <div class="floating-ingredients">
+            <div class="floating-ingredient" style="left: 10%; top: 20%">
+              <img src="./images/Ingredients/bb_tomato.png" alt="Tomato" />
+            </div>
+            <div class="floating-ingredient" style="left: 25%; top: 40%">
+              <img
+                src="./images/Ingredients/bb_cheddar_cheese.png"
+                alt="Cheese"
+              />
+            </div>
+            <div class="floating-ingredient" style="left: 75%; top: 60%">
+              <img src="./images/Ingredients/bb_lettuce.png" alt="Lettuce" />
+            </div>
+            <div class="floating-ingredient" style="left: 90%; top: 30%">
+              <img src="./images/Ingredients/bb_onions.png" alt="Onion" />
+            </div>
+            <div class="floating-ingredient" style="left: 50%; top: 70%">
+              <img src="./images/Ingredients/bb_bacon.png" alt="Bacon" />
+            </div>
+            <div class="floating-ingredient" style="left: 40%; top: 10%">
+              <img src="./images/Ingredients/Burger.png" alt="Burger" />
+            </div>
           </div>
         </div>
       </div>
@@ -452,24 +472,25 @@
           <img src="./images/Ingredients/bb_avocado.png" alt="Avocado" />
           <span>AVOCADO</span>
         </button>
-            <button class="ingredient-btn" data-ingredient="pickle">
+        <button class="ingredient-btn" data-ingredient="pickle">
           <img src="./images/Ingredients/bb_pickle.png" alt="Pickle" />
           <span>PICKLE</span>
         </button>
-                </button>
-            <button class="ingredient-btn" data-ingredient="bell_pepper">
-          <img src="./images/Ingredients/bb_bell_pepper.png" alt="Bell Pepper" />
+        <button class="ingredient-btn" data-ingredient="bell_pepper">
+          <img
+            src="./images/Ingredients/bb_bell_pepper.png"
+            alt="Bell Pepper"
+          />
           <span>BELL PEPPER</span>
         </button>
-                </button>
-                </button>
-            <button class="ingredient-btn" data-ingredient="grilled_shiitake">
-          <img src="./images/Ingredients/bb_grilled_shiitake.png" alt="Grilled Shiitake" />
-          <span>GRILLED SHIITAKE</span>
+        <button class="ingredient-btn" data-ingredient="grilled_shiitake">
+          <img
+            src="./images/Ingredients/bb_grilled_shiitake.png"
+            alt="Grilled Shiitake"
+          />
+          <span class="ingredient-text">GRILLED SHIITAKE</span>
         </button>
-                </button>
-                </button>
-            <button class="ingredient-btn" data-ingredient="fries">
+        <button class="ingredient-btn" data-ingredient="fries">
           <img src="./images/Ingredients/bb_fries.png" alt="Fries" />
           <span>FRIES</span>
         </button>
@@ -487,7 +508,7 @@
         </button>
         <button class="ingredient-btn" data-ingredient="mayonnaise">
           <img src="./images/Ingredients/bb_mayonnaise.png" alt="Mayonnaise" />
-          <span>MAYONNAISE</span>
+          <span class="ingredient-text">MAYONNAISE</span>
         </button>
         <button class="ingredient-btn" data-ingredient="bun-bottom">
           <img src="./images/Ingredients/bb_bottom_bun.png" alt="Bottom Bun" />
@@ -605,7 +626,7 @@
             showMessage("😋 Yummy! That was delicious!");
           }, 1000);
         });
-
+        //<!-------- Share Button -------->
         // Enhanced Share button with right-aligned text and vibrant styling
         shareBtn.addEventListener("click", async function () {
           sounds.share
@@ -613,20 +634,115 @@
             .catch((e) => console.log("Sound playback prevented:", e));
           createConfetti();
 
-          try {
-            // Capture high-quality screenshot
-            const canvas = await html2canvas(
-              document.getElementById("burger-area"),
-              {
-                backgroundColor: null,
-                scale: 2,
-                logging: false,
-                useCORS: true,
-              }
+          async function captureWithFixedWidth() {
+            const burgerArea = document.getElementById("capture-area");
+
+            // Save original styles
+            const originalWidth = burgerArea.style.width;
+            const originalMaxWidth = burgerArea.style.maxWidth;
+            const originalOverflow = burgerArea.style.overflow;
+
+            // Fix width and hide overflow for capture
+            burgerArea.style.width = "1000px";
+            burgerArea.style.overflow = "hidden";
+
+            const innerContent = burgerArea.firstElementChild;
+
+            // Save innerContent original styles
+            const originalPosition = innerContent
+              ? innerContent.style.position
+              : "";
+            const originalLeft = innerContent ? innerContent.style.left : "";
+
+            if (innerContent) {
+              innerContent.style.position = "relative";
+              innerContent.style.left = "-10px"; // Move left 10px for capture
+            }
+
+            // Wait for images to load
+            const imgs = burgerArea.querySelectorAll("img");
+            await Promise.all(
+              Array.from(imgs).map((img) => {
+                img.crossOrigin = "anonymous";
+                if (img.complete) return Promise.resolve();
+                return new Promise((resolve) => {
+                  img.onload = resolve;
+                  img.onerror = resolve;
+                });
+              })
             );
 
-            const imageData = canvas.toDataURL("image/png");
+            // Capture
+            const canvasOriginal = await html2canvas(burgerArea, {
+              backgroundColor: null,
+              scale: 1,
+              logging: false,
+              useCORS: true,
+            });
+
+            // Restore original styles
+            burgerArea.style.width = originalWidth;
+            burgerArea.style.maxWidth = originalMaxWidth;
+            burgerArea.style.overflow = originalOverflow;
+
+            if (innerContent) {
+              innerContent.style.position = originalPosition;
+              innerContent.style.left = originalLeft;
+            }
+
+            // Crop width (bỏ 220px bên phải)
+            const cropWidth = canvasOriginal.width - 220;
+            const cropHeight = canvasOriginal.height;
+
+            // Tạo canvas crop
+            const canvasCropped = document.createElement("canvas");
+            canvasCropped.width = cropWidth;
+            canvasCropped.height = cropHeight;
+
+            const ctx = canvasCropped.getContext("2d");
+            ctx.drawImage(
+              canvasOriginal,
+              0,
+              0,
+              cropWidth,
+              cropHeight,
+              0,
+              0,
+              cropWidth,
+              cropHeight
+            );
+
+            // --- Scale width after cropping ---
+            const scaleX = 0.9; //
+            const scaledWidth = Math.floor(cropWidth * scaleX);
+            const scaledHeight = cropHeight;
+
+            const canvasScaled = document.createElement("canvas");
+            canvasScaled.width = scaledWidth;
+            canvasScaled.height = scaledHeight;
+
+            const ctxScaled = canvasScaled.getContext("2d");
+            ctxScaled.drawImage(
+              canvasCropped,
+              0,
+              0,
+              cropWidth,
+              cropHeight,
+              0,
+              0,
+              scaledWidth,
+              scaledHeight
+            );
+
+            const imageDataScaled = canvasScaled.toDataURL("image/png");
+
             showMessage("✨ Ready to Share Your Burger!");
+
+            return imageDataScaled;
+          }
+
+          try {
+            const imageData = await captureWithFixedWidth();
 
             // Create sleek contribution panel
             const contributionPanel = `
@@ -661,11 +777,10 @@
                     border-radius: 12px;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
                     width: 100%;
-                    min-height: 250px; 
                 ">
                   <img src="${imageData}" style="
-                      max-width: 220px;
-                      max-height: 220px;
+                      width: 100%;  
+                      max-height: auto;
                       border: 4px solid #ffa502;
                       border-radius: 8px;
                       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
