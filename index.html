@@ -637,30 +637,25 @@
           async function captureWithFixedWidth() {
             const burgerArea = document.getElementById("capture-area");
 
-            // Save original styles
-            const originalWidth = burgerArea.style.width;
-            const originalMaxWidth = burgerArea.style.maxWidth;
-            const originalOverflow = burgerArea.style.overflow;
+            // Clone burgerArea outside viewport make sure no glitch when DOM
+            const clone = burgerArea.cloneNode(true);
+            clone.style.position = "fixed";
+            clone.style.left = "-9999px"; // take it out of viewport
+            clone.style.top = "0";
+            clone.style.width = "900px"; // width capture make sure a constant width
+            clone.style.overflow = "hidden";
 
-            // Fix width and hide overflow for capture
-            burgerArea.style.width = "1000px";
-            burgerArea.style.overflow = "hidden";
-
-            const innerContent = burgerArea.firstElementChild;
-
-            // Save innerContent original styles
-            const originalPosition = innerContent
-              ? innerContent.style.position
-              : "";
-            const originalLeft = innerContent ? innerContent.style.left : "";
-
+            // Move inner content slightly to the left
+            const innerContent = clone.firstElementChild;
             if (innerContent) {
               innerContent.style.position = "relative";
-              innerContent.style.left = "-10px"; // Move left 10px for capture
+              innerContent.style.left = "-10px";
             }
 
-            // Wait for images to load
-            const imgs = burgerArea.querySelectorAll("img");
+            document.body.appendChild(clone);
+
+            // Wait for all images to load
+            const imgs = clone.querySelectorAll("img");
             await Promise.all(
               Array.from(imgs).map((img) => {
                 img.crossOrigin = "anonymous";
@@ -673,28 +668,20 @@
             );
 
             // Capture
-            const canvasOriginal = await html2canvas(burgerArea, {
+            const canvasOriginal = await html2canvas(clone, {
               backgroundColor: null,
               scale: 1,
               logging: false,
               useCORS: true,
             });
 
-            // Restore original styles
-            burgerArea.style.width = originalWidth;
-            burgerArea.style.maxWidth = originalMaxWidth;
-            burgerArea.style.overflow = originalOverflow;
+            // Delete clone
+            document.body.removeChild(clone);
 
-            if (innerContent) {
-              innerContent.style.position = originalPosition;
-              innerContent.style.left = originalLeft;
-            }
-
-            // Crop width (bỏ 220px bên phải)
+            // Crop width
             const cropWidth = canvasOriginal.width - 220;
             const cropHeight = canvasOriginal.height;
 
-            // Tạo canvas crop
             const canvasCropped = document.createElement("canvas");
             canvasCropped.width = cropWidth;
             canvasCropped.height = cropHeight;
@@ -713,7 +700,7 @@
             );
 
             // --- Scale width after cropping ---
-            const scaleX = 0.9; //
+            const scaleX = 0.9;
             const scaledWidth = Math.floor(cropWidth * scaleX);
             const scaledHeight = cropHeight;
 
