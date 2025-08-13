@@ -642,7 +642,7 @@
             clone.style.position = "fixed";
             clone.style.left = "-9999px"; // take it out of viewport
             clone.style.top = "0";
-            clone.style.width = "900px"; // width capture make sure a constant width
+            clone.style.width = "880px"; // width capture make sure a constant width
             clone.style.overflow = "hidden";
 
             // Move inner content slightly to the left
@@ -679,7 +679,7 @@
             document.body.removeChild(clone);
 
             // Crop width
-            const cropWidth = canvasOriginal.width - 220;
+            const cropWidth = canvasOriginal.width - 200;
             const cropHeight = canvasOriginal.height;
 
             const canvasCropped = document.createElement("canvas");
