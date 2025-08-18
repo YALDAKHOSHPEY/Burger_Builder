@@ -53,7 +53,7 @@ Experience the fun with animated clicks and tasty ingredients.
 ---
 ## 🥑🍳Added new ingredients by [DuyetBKU](https://github.com/DuyetBKU) & [VIDAKHOSHPEY22](https://github.com/VIDAKHOSHPEY22).  
 
-![Preview](https://github.com/YALDAKHOSHPEY/Burger_Builder/blob/9b542482bb6d3435fcb3932bc371a2bb7788e6eb/images/preview_new.png)
+![Preview](https://github.com/YALDAKHOSHPEY/Burger_Builder/blob/2a997b5408dd33ddfd3667491d0a6ebd3984db69/images/preview_new.png)
 
 ---
 
@@ -137,10 +137,10 @@ Hamburger/
 
 ## 📜 License
 
-This project is licensed under the **Yalda & Vida Fun License**:
+This project is licensed under the **Yalda & Vida & DuyetBKU Fun License**:
 You may fork, remix, and share your burger creations as long as you:
 
-* Credit **Yalda & Vida**
+* Credit **Yalda & Vida & DuyetBKU**
 * Keep it friendly and fun
 * Respect all burger preferences (yes, even pineapple 🍍)
 
@@ -156,4 +156,4 @@ You may fork, remix, and share your burger creations as long as you:
 
 ---
 
-**Made with ❤️ by Yalda & Vida**
+**Made with ❤️ by Yalda & Vida & DuyetBKU**
