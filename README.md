@@ -1,4 +1,4 @@
-# 🍔 The Ultimate Burger Builde
+# 🍔 The Ultimate Burger Builder
 
 ![Banner](images/banner.jpg)
 
